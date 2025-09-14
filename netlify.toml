@@ -1,0 +1,29 @@
+# netlify.toml
+[build]
+  publish = "build"
+  command = "npm run build"
+
+[dev]
+  port = 3000
+  framework = "#create-react-app"
+
+[template.environment]
+  NODE_VERSION = "18.x"
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Content-Type-Options = "nosniff"
+    X-Frame-Options = "SAMEORIGIN"
+    X-XSS-Protection = "1; mode=block"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Strict-Transport-Security = "max-age=63072000; includeSubDomains; preload"
+    Content-Security-Policy = "default-src 'self'; script-src 'self' https://unpkg.com https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://*.netlify.app"
+
+[build.environment]
+  NPM_FLAGS = "--legacy-peer-deps"
